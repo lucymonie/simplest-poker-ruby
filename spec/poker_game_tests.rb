@@ -83,9 +83,6 @@ describe 'Simple Poker Game' do
     expect(winners) =~ ["player1", "player2"]
   end
 
-  # Better way might be to have one function to determine the highest score
-  # Then have a function that selects any props that have this score
-
   it "can play a full game, taking in the number of players and cards" do
     winner_message = play_game(6, 4)
     expect(winner_message).to include('winner')
