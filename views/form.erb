@@ -1,0 +1,14 @@
+<div class="row">
+  <form class="col-md-3 col-md-offset-1" action="/" method="POST">
+    <div class="form-group">
+      <label for="players">Enter the number of players</label>
+      <input class="form-control" type="number" name="players">
+      <label for="cards">Enter the number of cards</label>
+      <input class="form-control" type="number" name="cards">
+    </div>
+    <input class="btn btn-default" type="submit" value="Submit" /><br>
+    <% if !@error.nil? %>
+      <p><%= @error %></p>
+    <% end %>
+  </form>
+</div>

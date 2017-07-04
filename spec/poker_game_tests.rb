@@ -1,10 +1,8 @@
-# may be set to 'development' but setting to test to run rspec
 ENV['RACK_ENV'] = 'test'
 
 $:.unshift File.join(File.dirname(__FILE__))
 require_relative File.join(File.dirname(__FILE__), "../index")
 
-# require testing gems
 require 'rspec'
 require 'rack/test'
 
@@ -93,13 +91,13 @@ describe 'Simple Poker Game' do
     expect(winner_message).to include('winner')
   end
 
-  # it "responds with success" do
-  #   get '/'
-  #   expect(last_response).to be_ok
-  # end
-  #
-  # it "says hello" do
-  #   get '/'
-  #   expect(last_response.body).to eq('Hello World')
-  # end
+  it "responds with success" do
+    get '/'
+    expect(last_response).to be_ok
+  end
+
+  it "has a layout file and html" do
+    get '/'
+    expect(last_response.body).to include("<title>poker game</title>")
+  end
 end

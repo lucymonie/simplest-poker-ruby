@@ -1,4 +1,5 @@
-# require 'sinatra'
+require 'sinatra'
+require 'open-uri'
 
 class Game
 	def initialize (num_cards, num_players)
@@ -87,7 +88,7 @@ class Game
 		  winner.each do |winner|
 			  winner_message += "#{winner}, "
 			end
-			winner_message.chop(2)
+			winner_message.chomp(', ')
 		end
 	end
 
@@ -99,4 +100,35 @@ def play_game (num_players, num_cards)
 	all_scores = game.get_all_scores (all_hands)
 	winner = game.get_winner (all_scores)
 	message = game.get_winner_message(winner)
+end
+
+def valid_numbers(num_cards, num_players)
+  if (num_cards * num_players > 52 || num_cards < 1 || num_players < 2)
+		return false
+	else
+		return true
+	end
+end
+
+get '/' do
+	erb :form
+end
+
+post '/' do
+	num_players = params[:players].to_i
+	num_cards = params[:cards].to_i
+	if valid_numbers(num_players, num_cards)
+		message = play_game(num_players, num_cards)
+		winner_message = URI.escape(message)
+		redirect "/message/#{winner_message}"
+	else
+		@error = 'Sorry, that combination of players and cards doesn\'t work. Please try again'
+		erb :form
+	end
+end
+
+get '/message/:winner_message' do
+	message = params[:winner_message]
+	@message = URI.unescape(message)
+	erb :index
 end
