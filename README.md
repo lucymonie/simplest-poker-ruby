@@ -7,9 +7,9 @@ Clone this repository:
 - SSH: `git@github.com:lucymonie/simplest-poker-ruby.git`
 - HTTPS: `https://github.com/lucymonie/simplest-poker-ruby.git`
 
-Navigate into the folder: `cd simplest-poker-ruby`
-Run: `ruby index.rb`
-Open a browser: `localhost:4567`
+Navigate into the folder: `cd simplest-poker-ruby`  
+Run: `ruby index.rb`  
+Open a browser: `localhost:4567`  
 
 #### To run the tests
 In the terminal, run
