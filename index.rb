@@ -1,5 +1,4 @@
 require 'sinatra'
-require 'open-uri'
 
 class Game
 	def initialize (num_cards, num_players)
