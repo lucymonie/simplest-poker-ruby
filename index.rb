@@ -77,22 +77,30 @@ class Game
 	end
 
 	# Following are functions related to determining which player is the winner
-	# Takes a hash { player (string) => score (number) }. Returns an array of winner/s (string)
-	# Too bulky and awkward, needs refactoring
-	def get_winner (all_scores)
+	# Takes a hash { player (string) => score (number) }
+	# Returns a hash { player (string) => score (number), winning_score (string) => score (number) }
+	def get_winning_score (all_scores)
+		all_scores_new = all_scores.dup
 		winning_score = 0
-		winners = Array.new
-		all_scores.each do |player_score|
-			if player_score[1] > winning_score
-				winner = player_score[0]
-				winning_score = player_score[1]
-				winners = Array.new(1,player_score[0])
-			elsif player_score[1] == winning_score
-				winners << player_score[0]
-				winning_score = player_score[1]
+		all_scores.each do |score|
+			if score[1] > winning_score
+				winning_score = score[1]
 			end
 		end
-		winners
+		all_scores_new['winning_score'] = winning_score
+		all_scores_new
+	end
+
+	# Takes a hash { player (string) => score (number), winning_score (string) => score (number) }
+	# Returns a list of winning players (array (string))
+	def get_winning_players (all_scores)
+		winning_players = Array.new
+		all_scores.each do |player|
+      if player[1] == all_scores["winning_score"]
+				winning_players << player[0]
+			end
+		end
+		winning_players
 	end
 
 	# Takes winner list (array (string)). Returns winner message (string)
@@ -116,8 +124,9 @@ def play_game (num_players, num_cards)
 	game = Game.new(num_players, num_cards)
 	all_hands = game.get_all_cards
 	all_scores = game.get_all_scores (all_hands)
-	winner = game.get_winner (all_scores)
-	message = game.get_winner_message(winner)
+	scores_and_winning_score = game.get_winning_score (all_scores)
+	winning_players = game.get_winning_players (scores_and_winning_score)
+	message = game.get_winner_message(winning_players)
 end
 
 # Helper function for number validation (user inputs)

@@ -75,12 +75,21 @@ describe 'Simple Poker Game' do
     scores = game.get_all_scores(cards)
   end
 
-  it "can use the scores to determine the winner or winners" do
+  it "can assess which is the winning score" do
     game = Game.new(3, 6)
-    cards = {"player1"=>["2D", "XC", "4D", "XD", "5S", "QD"], "player2"=>["7H", "5H", "2C", "KD", "9D", "7S"], "player3"=>["3H", "9S", "6D", "6C", "4H", "7C"]}
-    scores = game.get_all_scores(cards)
-    winners = game.get_winner(scores)
-    expect(winners) =~ ["player1", "player2"]
+    all_cards = {"player1"=>["2D", "XC", "4D", "XD", "5S", "QD"], "player2"=>["7H", "5H", "2C", "KD", "9D", "7S"], "player3"=>["3H", "9S", "6D", "6C", "4H", "7C"]}
+    all_scores = game.get_all_scores(all_cards)
+    all_scores = game.get_winning_score(all_scores)
+    expect(all_scores["winning_score"]).to eq(43)
+  end
+
+  it "can check which players have the winning score" do
+    game = Game.new(3, 6)
+    all_cards = {"player1"=>["2D", "XC", "4D", "XD", "5S", "QD"], "player2"=>["7H", "5H", "2C", "KD", "9D", "7S"], "player3"=>["3H", "9S", "6D", "6C", "4H", "7C"]}
+    all_scores = game.get_all_scores(all_cards)
+    winning_score = game.get_winning_score(all_scores)
+    winning_players = game.get_winning_players(all_scores)
+    expect(winning_players) =~ ["player1", "player2"]
   end
 
   it "can play a full game, taking in the number of players and cards" do
