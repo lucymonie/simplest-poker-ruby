@@ -17,7 +17,7 @@ class Game
 	attr_reader :score
 
 	# Following are functions related to dealing hands of cards
-	# Gets a hand of cards for each player
+	# Returns a record of the cards dealt to each player { player => hand (array (strings)) }
 	def get_all_cards
 		all_hands = Hash.new
 		n = 1
