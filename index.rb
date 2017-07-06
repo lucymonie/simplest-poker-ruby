@@ -96,7 +96,7 @@ class Game
 	def get_winning_players (all_scores)
 		winning_players = Array.new
 		all_scores.each do |player|
-      if player[1] == all_scores["winning_score"]
+      if player[1] == all_scores["winning_score"] && player[0] != "winning_score"
 				winning_players << player[0]
 			end
 		end
